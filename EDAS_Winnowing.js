@@ -37,6 +37,7 @@ const EDAS_Winnowing = ({ dataDosen, strJudulMhs, bobotKriteria }) => {
 
   EDASVal.forEach((edas, idx) => {
     result?.push({
+      ...dataDosen[idx],
       dosenName: dataDosen[idx]?.dosenName,
       skor: edas,
     });

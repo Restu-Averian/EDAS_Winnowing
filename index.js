@@ -1,4 +1,5 @@
 const { EDAS_Winnowing } = require("./EDAS_Winnowing");
+const { winnowingHandler, allWinnowingDosen } = require("./Winnowing");
 
 const strJudulMhs =
   "PENENTUAN DOSEN PEMBIMBING TUGAS AKHIR JURUSAN TI Politeknik Negeri Padang DENGAN ALGORITMA AHP-WP DAN WINNOWING BERBASIS WEBSITE";
@@ -43,7 +44,7 @@ const dataDosen = [
     keahlian: 0,
     jbtn: 2,
     pend: 1,
-    isJudulDriDosen: 2,
+    isJudulDriDosen: 1,
   },
   {
     dosenName: "Dwiny Meidelfi",
@@ -85,7 +86,7 @@ const dataDosen = [
     keahlian: 0,
     jbtn: 3,
     pend: 1,
-    isJudulDriDosen: 2,
+    isJudulDriDosen: 1,
   },
 ];
 
@@ -134,4 +135,8 @@ console.log(
     strJudulMhs,
     bobotKriteria,
   })
+  // allWinnowingDosen({
+  //   dataPenelitian: dataDosen,
+  //   strJudulMhs,
+  // })
 );
