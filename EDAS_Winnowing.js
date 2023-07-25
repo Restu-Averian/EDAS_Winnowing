@@ -1,5 +1,10 @@
-const { allWinnowingDosen } = require("./Winnowing");
+const {
+  allWinnowingDosen,
+  winnowingHandler,
+  jaccardSimilarityHandler,
+} = require("./Winnowing");
 const { EDAS } = require("./EDAS");
+const sortArrObj = require("../helpers/sortArrObj");
 
 const sortArr = (arr = [], deps) => {
   return arr?.sort((a, b) => {
@@ -13,9 +18,14 @@ const sortArr = (arr = [], deps) => {
 };
 
 const EDAS_Winnowing = ({ dataDosen, strJudulMhs, bobotKriteria }) => {
-  const K1Val = allWinnowingDosen({ dataPenelitian: dataDosen, strJudulMhs });
+  const K1Val = allWinnowingDosen({
+    dataPenelitian: dataDosen,
+    strJudulMhs,
+    kGramCount: 3,
+    windowCount: 11,
+  });
 
-  const arrDatAlternative = dataDosen?.map((data) => {
+  const arrDataAlternative = dataDosen?.map((data) => {
     return {
       K1: K1Val?.find((k1) => k1?.dosenName === data?.dosenName)
         ?.winnowingValue,
@@ -28,9 +38,14 @@ const EDAS_Winnowing = ({ dataDosen, strJudulMhs, bobotKriteria }) => {
     };
   });
 
+  const kriteriaSort = sortArrObj({
+    arr: bobotKriteria,
+    props: "code",
+  });
+
   const EDASVal = EDAS({
-    bobotKriteria,
-    alternativeDatas: arrDatAlternative,
+    bobotKriteria: kriteriaSort,
+    alternativeDatas: arrDataAlternative,
   });
 
   const result = [];

@@ -101,6 +101,7 @@ const windowHandler = ({ str, kGramCount, windowCount }) => {
   for (let i = 0; i < arrRHDatas?.length; i++) {
     windowArrDatas?.push(arrRHDatas?.slice(i, i + windowCount));
   }
+
   return windowArrDatas;
 };
 
@@ -177,6 +178,7 @@ const winnowingHandler = ({
       )
     );
   });
+
   /**
    * Hasil winnowing terhadap semua judul penelitian dosen, dijumlahkan semuanya sebagai value untuk K1
    */
@@ -185,7 +187,12 @@ const winnowingHandler = ({
   }, 0);
 };
 
-const allWinnowingDosen = ({ dataPenelitian = [], strJudulMhs = "" }) => {
+const allWinnowingDosen = ({
+  dataPenelitian = [],
+  strJudulMhs = "",
+  kGramCount = 3,
+  windowCount = 5,
+}) => {
   const arrWinnowingValues = [];
   for (let i = 0; i < dataPenelitian?.length; i++) {
     const judulPenelitian = dataPenelitian[i]?.judulPenelitian;
@@ -194,8 +201,8 @@ const allWinnowingDosen = ({ dataPenelitian = [], strJudulMhs = "" }) => {
     const winnowing = winnowingHandler({
       strJudulMhs,
       arrJudulDosen: judulPenelitian,
-      kGramCount: 3,
-      windowCount: 5,
+      kGramCount,
+      windowCount,
     });
 
     arrWinnowingValues?.push({
@@ -239,4 +246,5 @@ const allWinnowingDosen = ({ dataPenelitian = [], strJudulMhs = "" }) => {
 module.exports = {
   allWinnowingDosen,
   winnowingHandler,
+  jaccardSimilarityHandler,
 };
