@@ -47,10 +47,11 @@ const roundUp4 = (num = 0) =>
 // ---------------Winnowing Process---------------
 const arrKGramHandler = ({ str, kGramCount = 3 }) => {
   const arrKGramDatas = [];
+  const preProcString = preProcessingText(str);
 
-  for (let i = 0; i < str?.length; i++) {
-    if (str.slice(i, i + kGramCount)?.length === kGramCount) {
-      arrKGramDatas.push(str.slice(i, i + kGramCount));
+  for (let i = 0; i < preProcString?.length; i++) {
+    if (preProcString.slice(i, i + kGramCount)?.length === kGramCount) {
+      arrKGramDatas.push(preProcString.slice(i, i + kGramCount));
     }
   }
 
@@ -170,8 +171,8 @@ const winnowingHandler = ({
     arrValueK1?.push(
       roundUp4(
         jaccardSimilarityHandler({
-          strJudulMhs: preProcessingText(strJudulMhs),
-          strJudulPenelitian: preProcessingText(judulDosen),
+          strJudulMhs,
+          strJudulPenelitian: judulDosen,
           kGramCount,
           windowCount,
         })
