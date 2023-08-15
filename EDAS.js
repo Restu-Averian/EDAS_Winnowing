@@ -107,7 +107,8 @@ const AVHandler = ({ bobotKriteria, alternativeDatas }) => {
         objPerKriteria?.[`K${idx + 1}`]?.reduce((total, curr) => {
           return (total += curr);
         }, 0) / alternativeDatas?.length,
-      benefitCost: bobotData?.benefitCost === "benefit" ? "benefit" : "cost",
+      // benefitCost: bobotData?.benefitCost === "benefit" ? "benefit" : "cost",
+      benefitCost: bobotData?.benefitCost,
     });
   });
 
@@ -127,17 +128,23 @@ const PDAHandler = ({ bobotKriteria, alternativeDatas }) => {
       const findIndexAVHandler = valueAV?.findIndex(
         (data) => data?.code === altKey
       );
+
       const valueAVHandler = valueAV?.[findIndexAVHandler]?.value;
       const benefitCostAVHandler = valueAV?.[findIndexAVHandler]?.benefitCost;
 
-      if (benefitCostAVHandler === "benefit") {
-        dataPerAlternative[altKey] =
-          (valueAVHandler - dataPerAlternative[altKey]) / valueAVHandler;
-      }
       if (benefitCostAVHandler === "cost") {
-        dataPerAlternative[altKey] =
-          (dataPerAlternative[altKey] - valueAVHandler) / valueAVHandler;
+        dataPerAlternative[altKey] = Math.max(
+          0,
+          (valueAVHandler - dataPerAlternative[altKey]) / valueAVHandler
+        );
+      } else if (benefitCostAVHandler === "benefit") {
+        dataPerAlternative[altKey] = Math.max(
+          0,
+          (dataPerAlternative[altKey] - valueAVHandler) / valueAVHandler
+        );
       }
+
+      dataPerAlternative[altKey] = Math.max(0, dataPerAlternative[altKey]);
     });
 
     return dataPerAlternative;
@@ -161,13 +168,16 @@ const NDAHandler = ({ bobotKriteria, alternativeDatas }) => {
       const valueAVHandler = valueAV?.[findIndexAVHandler]?.value;
       const benefitCostAVHandler = valueAV?.[findIndexAVHandler]?.benefitCost;
 
-      if (benefitCostAVHandler === "benefit") {
-        dataPerAlternative[altKey] =
-          (dataPerAlternative[altKey] - valueAVHandler) / valueAVHandler;
-      }
       if (benefitCostAVHandler === "cost") {
-        dataPerAlternative[altKey] =
-          (valueAVHandler - dataPerAlternative[altKey]) / valueAVHandler;
+        dataPerAlternative[altKey] = Math.max(
+          0,
+          (dataPerAlternative[altKey] - valueAVHandler) / valueAVHandler
+        );
+      } else if (benefitCostAVHandler === "benefit") {
+        dataPerAlternative[altKey] = Math.max(
+          0,
+          (valueAVHandler - dataPerAlternative[altKey]) / valueAVHandler
+        );
       }
     });
 
@@ -206,7 +216,11 @@ const distance_PDA = ({ bobotKriteria, alternativeDatas }) => {
 
   maxVal = Math.max(...sumPDAPerAlternative);
 
-  return { arrDatas: arrDistancePDA, maxValue: maxVal };
+  return {
+    arrDatas: arrDistancePDA,
+    maxValue: maxVal,
+    arrSP: sumPDAPerAlternative,
+  };
 };
 
 const distance_NDA = ({ bobotKriteria, alternativeDatas }) => {
@@ -238,7 +252,11 @@ const distance_NDA = ({ bobotKriteria, alternativeDatas }) => {
 
   maxVal = Math.max(...sumNDAPerAlternative);
 
-  return { arrDatas: arrDistanceNDA, maxValue: maxVal };
+  return {
+    arrDatas: arrDistanceNDA,
+    maxValue: maxVal,
+    arrSN: sumNDAPerAlternative,
+  };
 };
 
 const normalisasiSPHandler = ({ bobotKriteria, alternativeDatas }) => {
@@ -249,16 +267,20 @@ const normalisasiSPHandler = ({ bobotKriteria, alternativeDatas }) => {
   const arrValuesPerAlternatif = [];
   const NSP = [];
 
-  arrDistancePDA?.arrDatas?.forEach((dataPDA) => {
-    arrValuesPerAlternatif?.push(Object?.values(dataPDA));
+  // arrDistancePDA?.arrDatas?.forEach((dataPDA) => {
+  //   arrValuesPerAlternatif?.push(Object?.values(dataPDA));
+  // });
+
+  arrDistancePDA?.arrSP?.forEach((SP) => {
+    NSP?.push(SP / arrDistancePDA?.maxValue);
   });
 
-  arrValuesPerAlternatif?.forEach((valuePerAlt) => {
-    NSP?.push(
-      valuePerAlt?.reduce((total, curr) => (total += curr), 0) /
-        arrDistancePDA?.maxValue
-    );
-  });
+  // arrValuesPerAlternatif?.forEach((valuePerAlt) => {
+  //   NSP?.push(
+  //     valuePerAlt?.reduce((total, curr) => (total += curr), 0) /
+  //       arrDistancePDA?.maxValue
+  //   );
+  // });
 
   return NSP;
 };
@@ -268,18 +290,24 @@ const normalisasiSNHandler = ({ bobotKriteria, alternativeDatas }) => {
     bobotKriteria,
     alternativeDatas,
   });
-  const arrValuesPerAlternatif = [];
+  // const arrValuesPerAlternatif = [];
   const NSN = [];
 
-  arrDistanceNDA?.arrDatas?.forEach((dataNDA) => {
-    arrValuesPerAlternatif?.push(Object?.values(dataNDA));
-  });
+  // arrDistanceNDA?.arrDatas?.forEach((dataNDA) => {
+  //   arrValuesPerAlternatif?.push(Object?.values(dataNDA));
+  // });
 
-  arrValuesPerAlternatif?.forEach((valuePerAlt) => {
-    NSN?.push(
-      valuePerAlt?.reduce((total, curr) => (total += curr), 0) /
-        arrDistanceNDA?.maxValue
-    );
+  // arrValuesPerAlternatif?.forEach((valuePerAlt) => {
+  //   NSN?.push(
+  //     valuePerAlt?.reduce((total, curr) => (total += curr), 0) /
+  //       arrDistanceNDA?.maxValue
+  //   );
+  // });
+
+  arrDistanceNDA?.arrSN?.forEach((SN) => {
+    /**Terdapat 2 jenis berbeda, dicoba2 saja kalau hasil rekomendasi kurang akurat */
+    NSN?.push(1 - SN / arrDistanceNDA?.maxValue);
+    // NSN?.push(SN / arrDistanceNDA?.maxValue);
   });
 
   return NSN;

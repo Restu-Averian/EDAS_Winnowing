@@ -4,7 +4,6 @@ const {
   jaccardSimilarityHandler,
 } = require("./Winnowing");
 const { EDAS } = require("./EDAS");
-const sortArrObj = require("../helpers/sortArrObj");
 
 const sortArr = (arr = [], deps) => {
   return arr?.sort((a, b) => {
@@ -17,12 +16,30 @@ const sortArr = (arr = [], deps) => {
   });
 };
 
-const EDAS_Winnowing = ({ dataDosen, strJudulMhs, bobotKriteria }) => {
+const sortArrObj = ({ arr, props, sortType = "ASC" }) => {
+  return arr.sort((a, b) => {
+    if (a?.[props] > b?.[props]) {
+      return sortType === "ASC" ? 1 : -1;
+    } else if (a?.[props] < b?.[props]) {
+      return sortType === "ASC" ? -1 : 1;
+    }
+    return 0;
+  });
+};
+
+const EDAS_Winnowing = ({
+  dataDosen,
+  strJudulMhs,
+  bobotKriteria,
+  kGramCount = 3,
+  windowCount = 11,
+}) => {
   const K1Val = allWinnowingDosen({
     dataPenelitian: dataDosen,
     strJudulMhs,
-    kGramCount: 3,
-    windowCount: 11,
+    kGramCount,
+    windowCount,
+    // windowCount: 11,
   });
 
   const arrDataAlternative = dataDosen?.map((data) => {
@@ -30,11 +47,11 @@ const EDAS_Winnowing = ({ dataDosen, strJudulMhs, bobotKriteria }) => {
       K1: K1Val?.find((k1) => k1?.dosenName === data?.dosenName)
         ?.winnowingValue,
       K2: data?.SKS,
-      K3: data?.nMhs,
-      K4: data?.keahlian,
-      K5: data?.jbtn,
-      K6: data?.pend,
-      K7: data?.isJudulDriDosen,
+      // K3: data?.nMhs,
+      K3: data?.keahlian,
+      K4: data?.jbtn,
+      K5: data?.pend,
+      K6: data?.isJudulDriDosen,
     };
   });
 
