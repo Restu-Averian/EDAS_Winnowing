@@ -15,6 +15,8 @@
 //     benefitCost: "cost",
 //   },
 
+const dividedBy = require("./helpers");
+
 //   {
 //     code: "K4",
 //     bobot: 0.186,
@@ -111,7 +113,6 @@ const AVHandler = ({ bobotKriteria, alternativeDatas }) => {
       benefitCost: bobotData?.benefitCost,
     });
   });
-
   return arrAV;
 };
 
@@ -135,12 +136,18 @@ const PDAHandler = ({ bobotKriteria, alternativeDatas }) => {
       if (benefitCostAVHandler === "cost") {
         dataPerAlternative[altKey] = Math.max(
           0,
-          (valueAVHandler - dataPerAlternative[altKey]) / valueAVHandler
+          dividedBy({
+            pembilang: valueAVHandler - dataPerAlternative[altKey],
+            penyebut: valueAVHandler,
+          })
         );
       } else if (benefitCostAVHandler === "benefit") {
         dataPerAlternative[altKey] = Math.max(
           0,
-          (dataPerAlternative[altKey] - valueAVHandler) / valueAVHandler
+          dividedBy({
+            pembilang: dataPerAlternative[altKey] - valueAVHandler,
+            penyebut: valueAVHandler,
+          })
         );
       }
 
@@ -171,12 +178,18 @@ const NDAHandler = ({ bobotKriteria, alternativeDatas }) => {
       if (benefitCostAVHandler === "cost") {
         dataPerAlternative[altKey] = Math.max(
           0,
-          (dataPerAlternative[altKey] - valueAVHandler) / valueAVHandler
+          dividedBy({
+            pembilang: dataPerAlternative[altKey] - valueAVHandler,
+            penyebut: valueAVHandler,
+          })
         );
       } else if (benefitCostAVHandler === "benefit") {
         dataPerAlternative[altKey] = Math.max(
           0,
-          (valueAVHandler - dataPerAlternative[altKey]) / valueAVHandler
+          dividedBy({
+            pembilang: valueAVHandler - dataPerAlternative[altKey],
+            penyebut: valueAVHandler,
+          })
         );
       }
     });

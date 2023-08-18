@@ -47,11 +47,11 @@ const EDAS_Winnowing = ({
       K1: K1Val?.find((k1) => k1?.dosenName === data?.dosenName)
         ?.winnowingValue,
       K2: data?.SKS,
-      // K3: data?.nMhs,
-      K3: data?.keahlian,
-      K4: data?.jbtn,
-      K5: data?.pend,
-      K6: data?.isJudulDriDosen,
+      K3: data?.nMhs,
+      K4: data?.keahlian,
+      K5: data?.jbtn,
+      K6: data?.pend,
+      K7: data?.isJudulDriDosen,
     };
   });
 
