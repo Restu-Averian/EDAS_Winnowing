@@ -202,9 +202,9 @@ const alternativeDatas = [
   },
 ];
 
-const a = EDAS({
-  alternativeDatas,
-  bobotKriteria,
-});
+// const a = EDAS({
+//   alternativeDatas,
+//   bobotKriteria,
+// });
 
-console.log(a);
+// console.log(a);

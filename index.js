@@ -129,14 +129,14 @@ const bobotKriteria = [
   },
 ];
 
-console.log(
-  EDAS_Winnowing({
-    dataDosen,
-    strJudulMhs,
-    bobotKriteria,
-  })
-  // allWinnowingDosen({
-  //   dataPenelitian: dataDosen,
-  //   strJudulMhs,
-  // })
-);
+// console.log(
+//   EDAS_Winnowing({
+//     dataDosen,
+//     strJudulMhs,
+//     bobotKriteria,
+//   })
+//   // allWinnowingDosen({
+//   //   dataPenelitian: dataDosen,
+//   //   strJudulMhs,
+//   // })
+// );

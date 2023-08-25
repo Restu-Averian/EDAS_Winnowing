@@ -113,6 +113,7 @@ const AVHandler = ({ bobotKriteria, alternativeDatas }) => {
       benefitCost: bobotData?.benefitCost,
     });
   });
+
   return arrAV;
 };
 
@@ -151,7 +152,7 @@ const PDAHandler = ({ bobotKriteria, alternativeDatas }) => {
         );
       }
 
-      dataPerAlternative[altKey] = Math.max(0, dataPerAlternative[altKey]);
+      // dataPerAlternative[altKey] = Math.max(0, dataPerAlternative[altKey]);
     });
 
     return dataPerAlternative;
@@ -235,7 +236,6 @@ const distance_PDA = ({ bobotKriteria, alternativeDatas }) => {
     arrSP: sumPDAPerAlternative,
   };
 };
-
 const distance_NDA = ({ bobotKriteria, alternativeDatas }) => {
   const NDA_Value = NDAHandler({
     bobotKriteria,
@@ -297,7 +297,6 @@ const normalisasiSPHandler = ({ bobotKriteria, alternativeDatas }) => {
 
   return NSP;
 };
-
 const normalisasiSNHandler = ({ bobotKriteria, alternativeDatas }) => {
   const arrDistanceNDA = distance_NDA({
     bobotKriteria,
@@ -322,7 +321,6 @@ const normalisasiSNHandler = ({ bobotKriteria, alternativeDatas }) => {
     NSN?.push(1 - SN / arrDistanceNDA?.maxValue);
     // NSN?.push(SN / arrDistanceNDA?.maxValue);
   });
-
   return NSN;
 };
 

@@ -10,7 +10,7 @@ const dataPenelitianDosen = [
     ],
   },
   {
-    dosenName: "Alde",
+    dosenName: "Alde Alanda",
     judulPenelitian: [
       "Sistem Informasi Harga Komoditas Pangan untuk Pasar-Pasar di Kota Padang",
       "The Implementation of IoT (Internet of Things) for Controlling Cow Health",
@@ -23,6 +23,22 @@ const dataPenelitianDosen = [
       "E-Logbook Laporkan Kondisi Kesehatan, Absen & Kinerja Dosen, Kependidikan dan Kontrak selama WFH",
       "Financial Statements Analysis of Tanah Datar District Government",
       "Perancangan Sistim Monitoring Parkir Mobil Berbasis Web",
+    ],
+  },
+  {
+    dosenName: "Rasyidah",
+    judulPenelitian: [
+      "Implementing Machine Learning in Students Qur'an Memorization Prediction",
+      "Most Profitable Currency Exchange for ASEAN Countries Using Dijkstra’s Algorithm",
+      "Customer’s Behavior in Purchase Decision of Textile Materials: Rough-Regression Model",
+    ],
+  },
+  {
+    dosenName: "Defni",
+    judulPenelitian: [
+      "Enkripsi SMS (Short Message Service) pada telepon selular berbasis Android dengan metode RC6",
+      "Pemanfaatan Metode Kano Untuk Menilai Tingkat Kepuasan Pengguna Terhadap Fungsionalitas Sistem Informasi Kepegawaian (Studi Kasus: AKNP Pelalawan)",
+      "Analisis Sistim Informasi Akademik Berbasis Web Menggunakan Model Kano",
     ],
   },
 ];
@@ -218,9 +234,9 @@ const allWinnowingDosen = ({
 
 // // ---------------End---------------
 
-// // console.log(
-// //   allWinnowingDosen({ dataPenelitian: dataPenelitianDosen, strJudulMhs })
-// // );
+// console.log(
+//   allWinnowingDosen({ dataPenelitian: dataPenelitianDosen, strJudulMhs })
+// );
 
 // // const strJudulMahasiswa =
 // //   "PENENTUAN DOSEN PEMBIMBING TUGAS AKHIR JURUSAN TI POLITEKNIK NEGERI PADANG DENGAN ALGORITMA AHP-WP DAN WINNOWING BERBASIS WEBSITE";
