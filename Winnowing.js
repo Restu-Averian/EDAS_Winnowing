@@ -260,8 +260,22 @@ const allWinnowingDosen = ({
 //   "Pemanfaatan Metode Kano Untuk Menilai Tingkat Kepuasan Pengguna Terhadap Fungsionalitas Sistem Informasi Kepegawaian (Studi Kasus: AKNP Pelalawan)",
 //   "Analisis Sistim Informasi Akademik Berbasis Web Menggunakan Model Kano",
 // ];
+const Winnowing = {};
+
+Winnowing["allWinnowingDosen"] = allWinnowingDosen;
+Winnowing["preProcessingText"] = preProcessingText;
+Winnowing["arrKGramHandler"] = arrKGramHandler;
+Winnowing["rollingHashEachHandler"] = rollingHashEachHandler;
+Winnowing["arrRollingHashHandler"] = arrRollingHashHandler;
+Winnowing["windowHandler"] = windowHandler;
+Winnowing["jaccardSimilarityHandler"] = jaccardSimilarityHandler;
+Winnowing["winnowingHandler"] = winnowingHandler;
+Winnowing["fingerPrintHandler"] = fingerPrintHandler;
+
 module.exports = {
   allWinnowingDosen,
   winnowingHandler,
   jaccardSimilarityHandler,
 };
+
+module.exports = Winnowing;
