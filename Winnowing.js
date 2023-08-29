@@ -215,6 +215,8 @@ const allWinnowingDosen = ({
     const judulPenelitian = dataPenelitian[i]?.judulPenelitian;
     const namaDosen = dataPenelitian[i]?.dosenName;
 
+    const nip = dataPenelitian[i]?.nip && dataPenelitian[i]?.nip;
+
     const winnowing = winnowingHandler({
       strJudulMhs,
       arrJudulDosen: judulPenelitian,
@@ -225,6 +227,9 @@ const allWinnowingDosen = ({
     arrWinnowingValues?.push({
       dosenName: namaDosen,
       winnowingValue: winnowing,
+      ...(nip && {
+        nip,
+      }),
     });
   }
 
